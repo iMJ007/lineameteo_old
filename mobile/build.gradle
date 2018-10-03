@@ -1,0 +1,94 @@
+// Main build script for WebView App
+// 
+// Usage: gradlew assembleDebug           Build debug APK
+//        gradlew assembleRelease         Build release APK
+
+
+final VERSION_MAJOR = 2 // max two digits
+final VERSION_MINOR = 3 // max two digits
+final VERSION_PATCH = 1 // max two digits
+final VERSION_BUILD = 0 // max three digits
+
+
+apply plugin: "com.android.application"
+apply from: "../utils.gradle"
+
+
+android {
+	compileSdkVersion 28
+	buildToolsVersion '28.0.2'
+
+	defaultConfig {
+		applicationId "com.LineaMeteoPremium"
+		minSdkVersion 16
+		targetSdkVersion 28
+		versionCode getVersionCode(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_BUILD)
+		versionName getVersionName(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH)
+
+		// app id and Google project number for OneSignal push notifications,
+		// leave these constants empty if you do not want to use push notifications,
+		// see https://documentation.onesignal.com for more info
+		manifestPlaceholders = [onesignal_app_id: "6fa95a58-23ff-4708-aa94-38c1f26ed294",
+								onesignal_google_project_number: "REMOTE"]
+	}
+
+	signingConfigs {
+		release {
+			// passwords and alias are obtained via askForPasswords task
+			storeFile file("../${project.property('keystore.file')}")
+			storePassword ""
+			keyAlias ""
+			keyPassword ""
+		}
+	}
+
+	buildTypes {
+		debug {
+			buildConfigField "boolean", "LOGS", "true"
+
+			versionNameSuffix "-debug"
+		}
+
+		release {
+			buildConfigField "boolean", "LOGS", "false"
+
+			signingConfig signingConfigs.release
+			zipAlignEnabled true
+			minifyEnabled false
+			shrinkResources false
+			proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+		}
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_7
+		targetCompatibility JavaVersion.VERSION_1_7
+	}
+
+	applicationVariants.all {
+		variant ->
+			if(variant.buildType.name.equals("release")) {
+				renameArtifact("webviewapp", variant)
+			}
+	}
+}
+
+
+dependencies {
+	implementation fileTree(dir: "libs", include: ["*.jar"])
+	implementation (name:"config", ext:"aar")
+	implementation "com.android.support:support-compat:26.1.0"
+	implementation "com.android.support:support-core-utils:26.1.0"
+	implementation "com.android.support:support-core-ui:26.1.0"
+	implementation "com.android.support:support-fragment:26.1.0"
+	implementation "com.android.support:appcompat-v7:26.1.0"
+	implementation "com.android.support:design:26.1.0"
+	implementation "com.google.android.gms:play-services-base:11.4.2"
+	implementation "com.google.android.gms:play-services-analytics:11.4.2"
+	implementation "com.google.android.gms:play-services-ads:11.4.2"
+	implementation "com.google.android.gms:play-services-gcm:11.4.2"
+	implementation "com.google.android.gms:play-services-location:11.4.2"
+	implementation "com.onesignal:OneSignal:3.6.4@aar"
+	implementation "org.alfonz:alfonz-utility:0.8.0"
+	implementation "org.alfonz:alfonz-view:0.8.0"
+}

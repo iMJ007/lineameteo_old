@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name" translatable="false">Linea Meteo Live</string>
+	<string name="app_store_uri" translatable="false">https://play.google.com/store/apps/details?id=%1$s</string>
+
+	<string name="navigation_header_title">Linea Meteo Live</string>
+
+	<string name="global_network_offline">Connessione Internet non disponibile</string>
+
+	<string name="menu_fragment_main_share">Condividi</string>
+
+	<string name="drawer_open">Open navigation drawer</string>
+	<string name="drawer_close">Close navigation drawer</string>
+
+	<string name="placeholder_empty">Non trovato</string>
+	<string name="placeholder_offline">Connessione Internet non disponibile</string>
+
+	<string name="permission_read_external_storage">Permission to read files is required</string>
+	<string name="permission_write_external_storage">Permission to write files is required</string>
+	<string name="permission_access_location">Permission to access your location is required</string>
+
+	<string name="activity_main_exit_snackbar">Desideri uscire dall\'applicazione?</string>
+	<string name="activity_main_exit_confirm">Si</string>
+	<string name="activity_main_rate_snackbar">Ti piace questa app? Votala nel Play Store. Grazie per il tuo supporto!</string>
+	<string name="activity_main_rate_confirm">Vota</string>
+
+	<string name="fragment_main_downloading">Downloading…</string>
+</resources>
