@@ -3,8 +3,10 @@ package com.LineaMeteoPremium;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 import com.robotemplates.webviewapp.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * Implementation of App Widget functionality.
@@ -13,11 +15,10 @@ public class LineaMeteoPremium extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.linea_meteo_premium);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        ImageView imageView;
+        imageView = new ImageView(context);
+        Picasso.get().load("http://retemeteo.lineameteo.it/banner/big.php?ID=1").into(imageView);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

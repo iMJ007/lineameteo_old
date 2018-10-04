@@ -91,4 +91,5 @@ dependencies {
 	implementation "com.onesignal:OneSignal:3.6.4@aar"
 	implementation "org.alfonz:alfonz-utility:0.8.0"
 	implementation "org.alfonz:alfonz-view:0.8.0"
+	implementation 'com.squareup.picasso:picasso:2.71828'
 }
