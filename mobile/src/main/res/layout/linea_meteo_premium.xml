@@ -5,4 +5,10 @@
     android:background="#09C"
     android:padding="@dimen/widget_margin">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/navigation_header_bg" />
 </RelativeLayout>

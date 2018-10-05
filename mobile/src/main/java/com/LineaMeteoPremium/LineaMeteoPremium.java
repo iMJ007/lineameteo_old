@@ -1,35 +1,67 @@
 package com.LineaMeteoPremium;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
-import android.widget.ImageView;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.widget.RemoteViews;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.transition.Transition;
 import com.robotemplates.webviewapp.R;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.request.target.AppWidgetTarget;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class LineaMeteoPremium extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.linea_meteo_premium);
-        ImageView imageView;
-        imageView = new ImageView(context);
-        Picasso.get().load("http://retemeteo.lineameteo.it/banner/big.php?ID=1").into(imageView);
+    private AppWidgetTarget appWidgetTarget;
 
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+    static void updateAppWidget(Context context, RemoteViews remoteViews) {
+
+        ComponentName myWidget = new ComponentName(context, LineaMeteoPremium.class);
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        manager.updateAppWidget(myWidget, remoteViews);
+
+
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.linea_meteo_premium);
+
+        AppWidgetTarget awt = new AppWidgetTarget(context, R.id.imageView, remoteViews, appWidgetIds) {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                super.onResourceReady(resource, transition);
+            }
+        };
+
+        RequestOptions options = new RequestOptions().
+                override(300, 300).placeholder(R.drawable.navigation_header_bg).error(R.drawable.ic_navigation_help);
+
+
+        // Create an Intent to launch Browser
+        Intent intent =
+                new Intent(
+                        Intent.ACTION_VIEW, Uri.parse("http://google.com")
+                );
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(context, 0, intent, 0);
+
+        remoteViews.setOnClickPendingIntent(R.id.imageView, pendingIntent);
+
+        Glide.with(context.getApplicationContext())
+                .asBitmap()
+                .load("http://retemeteo.lineameteo.it/banner/big.php?ID=1")
+                .apply(options)
+                .into(awt);
     }
 
     @Override
