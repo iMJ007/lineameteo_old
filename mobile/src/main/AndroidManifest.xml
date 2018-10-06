@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <!--
 	You can easily change the main theme. Just modify application.android:theme attribute.
 	There are 10 themes you can use:
@@ -67,6 +68,10 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/linea_meteo_premium_info" />
         </receiver>
+
+        <activity
+            android:name="com.LineaMeteoPremium.WidgetConfig"
+            android:label="@string/title_activity_widget_config"></activity>
     </application>
 
 </manifest>

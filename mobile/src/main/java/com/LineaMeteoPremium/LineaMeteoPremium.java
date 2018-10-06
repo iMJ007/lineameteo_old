@@ -1,5 +1,6 @@
 package com.LineaMeteoPremium;
 
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -7,7 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,7 @@ import com.bumptech.glide.request.target.AppWidgetTarget;
 public class LineaMeteoPremium extends AppWidgetProvider {
 
     private AppWidgetTarget appWidgetTarget;
+    public String src="http://retemeteo.lineameteo.it/banner/big.php?ID=1";
 
     static void updateAppWidget(Context context, RemoteViews remoteViews) {
 
@@ -48,18 +50,16 @@ public class LineaMeteoPremium extends AppWidgetProvider {
 
 
         // Create an Intent to launch Browser
-        Intent intent =
-                new Intent(
-                        Intent.ACTION_VIEW, Uri.parse("http://google.com")
-                );
+        Intent intent = new Intent(context, WidgetConfig.class);
+
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(context, 0, intent, 0);
 
+        Log.i("LineaMeteo", "src " + src);
         remoteViews.setOnClickPendingIntent(R.id.imageView, pendingIntent);
-
         Glide.with(context.getApplicationContext())
                 .asBitmap()
-                .load("http://retemeteo.lineameteo.it/banner/big.php?ID=1")
+                .load(src)
                 .apply(options)
                 .into(awt);
     }
