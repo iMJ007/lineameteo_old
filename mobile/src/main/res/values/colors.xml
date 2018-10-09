@@ -8,7 +8,7 @@
 	<color name="global_color_control_highlight">#40000000</color>
 	<color name="global_color_switch_thumb_normal">#f1f1f1</color>
 
-	<color name="global_color_blue_primary">#2196f3</color>
+	<color name="global_color_blue_primary">#66b8f9</color>
 	<color name="global_color_blue_primary_dark">#1976d2</color>
 	<color name="global_color_blue_primary_light">#bbdefb</color>
 	<color name="global_color_brown_primary">#795548</color>
