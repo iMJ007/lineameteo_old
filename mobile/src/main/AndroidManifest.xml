@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 
     <!--
 	You can easily change the main theme. Just modify application.android:theme attribute.
@@ -68,7 +69,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/linea_meteo_premium_info" />
         </receiver>
-
+        <receiver android:name="com.LineaMeteoPremium.Alarm" android:exported="true">
+            <intent-filter>
+                <action android:name="mypackage.START_ALARM" >
+                </action>
+            </intent-filter>
+        </receiver>
         <activity
             android:name="com.LineaMeteoPremium.WidgetConfig"
             android:label="@string/title_activity_widget_config"></activity>

@@ -1,5 +1,6 @@
 package com.LineaMeteoPremium;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -62,11 +64,13 @@ public class LineaMeteoPremium extends AppWidgetProvider {
                 .load(src)
                 .apply(options)
                 .into(awt);
+
     }
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+        Alarm alarm = new Alarm();
+
     }
 
     @Override
