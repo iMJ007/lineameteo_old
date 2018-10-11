@@ -1,7 +1,5 @@
 package com.LineaMeteoPremium;
 
-import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,7 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -27,7 +24,7 @@ public class LineaMeteoPremium extends AppWidgetProvider {
     private AppWidgetTarget appWidgetTarget;
     public String src="http://retemeteo.lineameteo.it/banner/big.php?ID=1";
 
-    static void updateAppWidget(Context context, RemoteViews remoteViews) {
+    static void updateAppWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
 
         ComponentName myWidget = new ComponentName(context, LineaMeteoPremium.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
@@ -69,7 +66,7 @@ public class LineaMeteoPremium extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        Alarm alarm = new Alarm();
+
 
     }
 
