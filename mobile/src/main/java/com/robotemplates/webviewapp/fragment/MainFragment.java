@@ -512,7 +512,13 @@ public class MainFragment extends TaskFragment implements SwipeRefreshLayout.OnR
 		mWebView.getSettings().setDatabaseEnabled(true);
 		mWebView.getSettings().setGeolocationEnabled(true);
 		mWebView.getSettings().setSupportZoom(true);
-		mWebView.getSettings().setBuiltInZoomControls(false);
+		mWebView.getSettings().setBuiltInZoomControls(true);
+		
+		//hide zoom controls
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		{
+			mWebView.getSettings().setDisplayZoomControls(false);
+		}
 
 		// advanced webview settings
 		mWebView.setListener(getActivity(), this);
