@@ -45,7 +45,7 @@ public class WidgetConfig extends Activity {
 
         LocationIdMap = new HashMap<String, String>();
 
-        loadSpinnerData("https://api.myjson.com/bins/derf8");
+        loadSpinnerData("http://retemeteo.lineameteo.it/json_app.php");
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view,
