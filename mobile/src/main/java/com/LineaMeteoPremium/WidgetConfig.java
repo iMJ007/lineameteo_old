@@ -3,6 +3,8 @@ package com.LineaMeteoPremium;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.Context;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -10,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -22,7 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.robotemplates.webviewapp.R;
 
-import org.alfonz.utility.Logcat;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ public class WidgetConfig extends Activity {
 
     private Spinner spinner;
     private HashMap<String, String> LocationIdMap;
+
 
 
     @Override
@@ -60,6 +62,7 @@ public class WidgetConfig extends Activity {
                 } else {
                     lineaMeteoPremium.src = "http://retemeteo.lineameteo.it/banner/big.php?ID=1";
                 }
+
                 Log.i("LineaMeteo", "activityCall " + lineaMeteoPremium.src);
                 lineaMeteoPremium.onUpdate(parent.getContext(), AppWidgetManager.getInstance(parent.getContext()), ids);
 

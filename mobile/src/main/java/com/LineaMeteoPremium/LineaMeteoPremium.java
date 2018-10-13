@@ -7,9 +7,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -25,8 +27,9 @@ import com.bumptech.glide.request.target.AppWidgetTarget;
 public class LineaMeteoPremium extends AppWidgetProvider {
 
     private AppWidgetTarget appWidgetTarget;
-    public String src="http://retemeteo.lineameteo.it/banner/big.php?ID=1";
-    public Boolean srcDefault = false;
+    public String src;
+    private SharedPreferences prefs;
+    private String srcKey = "com.example.app.datetime";
 
     static void updateAppWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
 
@@ -37,14 +40,29 @@ public class LineaMeteoPremium extends AppWidgetProvider {
 
     }
 
+    private void init(Context context) {
+
+    }
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        prefs = context.getSharedPreferences(
+                "com.LineaMeteoPremium", Context.MODE_PRIVATE);
+
         for (int widgetId : appWidgetIds) {
+
+
             setUpAlarm(context, widgetId);
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.linea_meteo_premium);
 
             Log.e("LineaMeteo Widget", "src " + src);
+
+            if(TextUtils.isEmpty(src)) {
+                src = prefs.getString(srcKey, "http://retemeteo.lineameteo.it/banner/big.php?ID=1");
+            } else {
+                prefs.edit().putString(srcKey, src).apply();
+            }
 
             AppWidgetTarget awt = new AppWidgetTarget(context, R.id.imageView, remoteViews, appWidgetIds);
 
