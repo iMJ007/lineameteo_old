@@ -10,11 +10,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -27,28 +27,39 @@ import com.android.volley.toolbox.Volley;
 import com.robotemplates.webviewapp.R;
 
 
-import org.alfonz.utility.Logcat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import static com.robotemplates.kozuza.BaseApplication.getContext;
 
 public class WidgetConfig extends Activity {
 
-    private Spinner spinner;
     ArrayList<String> Regions = new ArrayList<String>();
     HashMap<String, HashMap<String,String>> Locations = new HashMap<String, HashMap<String,String>>();
     HashMap<String,String> activeLocations;
+    Boolean useClassic=true;
+    String activeId="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_widget_config);
+
+
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.styles);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                useClassic = !isChecked;
+                updateWidget();
+            }
+        });
+
+
+
 
         loadData("https://api.myjson.com/bins/9oqqc", this);
 
@@ -67,15 +78,9 @@ public class WidgetConfig extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String activeId = activeLocations.get(s.toString());
+                activeId = activeLocations.get(s.toString());
                 if(activeId == null) return;
-
-                int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), LineaMeteoPremium.class));
-                LineaMeteoPremium lineaMeteoPremium = new LineaMeteoPremium();
-                lineaMeteoPremium.src = "http://retemeteo.lineameteo.it/banner/big.php?ID="+activeId;
-
-                Log.i("LineaMeteo", "activityCall " + lineaMeteoPremium.src);
-                lineaMeteoPremium.onUpdate(getContext(), AppWidgetManager.getInstance(getContext()), ids);
+                updateWidget();
             }
         });
 
@@ -89,7 +94,18 @@ public class WidgetConfig extends Activity {
         });
     }
 
+    private void updateWidget() {
+        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), LineaMeteoPremium.class));
+        LineaMeteoPremium lineaMeteoPremium = new LineaMeteoPremium();
+        if(useClassic) {
+            lineaMeteoPremium.src = "http://retemeteo.lineameteo.it/banner/big.php?ID=" + activeId;
+        } else {
+            lineaMeteoPremium.src = "http://retemeteo.lineameteo.it/banner/widget.php?ID=" + activeId;
+        }
 
+        Log.i("LineaMeteo", "activityCall " + lineaMeteoPremium.src);
+        lineaMeteoPremium.onUpdate(getContext(), AppWidgetManager.getInstance(getContext()), ids);
+    }
 
 
 
