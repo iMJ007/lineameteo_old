@@ -71,7 +71,9 @@
         </receiver>
         <activity
             android:name="com.LineaMeteoPremium.WidgetConfig"
-            android:label="@string/title_activity_widget_config"></activity>
+            android:label="@string/title_activity_widget_config"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode|smallestScreenSize"
+            ></activity>
     </application>
 
 </manifest>
