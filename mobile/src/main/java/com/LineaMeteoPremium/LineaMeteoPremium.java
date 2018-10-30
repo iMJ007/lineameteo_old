@@ -49,12 +49,12 @@ public class LineaMeteoPremium extends AppWidgetProvider {
         prefs = context.getSharedPreferences(
                 "com.LineaMeteoPremium", Context.MODE_PRIVATE);
 
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.linea_meteo_premium);
+        
         for (int widgetId : appWidgetIds) {
 
 
             setUpAlarm(context, widgetId);
-
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.linea_meteo_premium);
 
             Log.e("LineaMeteo Widget", "src " + src);
 
@@ -85,9 +85,6 @@ public class LineaMeteoPremium extends AppWidgetProvider {
                     .apply(options)
                     .into(awt);
         }
-
-
-
     }
 
     @Override
@@ -120,7 +117,7 @@ public class LineaMeteoPremium extends AppWidgetProvider {
      */
     private void setUpAlarm(Context context, int appWidgetId) {
         final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        long interval = (3 * 60000); // 60000 = 1minute  | Change the formula based on your refresh timing needs
+        long interval = (30 * 60000); // 60000 = 1minute  | TODO Change the formula based on your refresh timing needs
 
         PendingIntent alarmPendingIntent = getRefreshWidgetPendingIntent(context, appWidgetId);
 
